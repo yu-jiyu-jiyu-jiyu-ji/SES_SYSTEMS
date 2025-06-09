@@ -1,10 +1,10 @@
-# import streamlit as st
-
-# st.title("こんにちは！")
-# st.write("これはStreamlitで作ったアプリです。")
-
-
 import streamlit as st
+
+st.title("こんにちは！")
+st.write("これはStreamlitで作ったアプリです。")
+
+
+# import streamlit as st
 
 st.title("案件・人材検索システム")
 st.write("ようこそ！ここではメールから抽出した情報を検索できます。")
