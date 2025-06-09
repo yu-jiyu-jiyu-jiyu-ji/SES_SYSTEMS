@@ -1,14 +1,13 @@
 import streamlit as st
+import pandas as pd
 
-# ページ設定
+# ページレイアウト設定
 st.set_page_config(layout="wide")
 
-# サイドバー（メニュー）
-menu = st.sidebar.radio("表示切替", ["案件情報", "人材情報"])
-
-# 左側：検索パネル
+# サイドバー：検索条件
 with st.sidebar:
     st.markdown("### テキスト")
+
     件名 = st.text_input("件名")
     受信日時 = st.text_input("受信日時")
     単価 = st.text_input("単価")
@@ -24,18 +23,25 @@ with st.sidebar:
     if st.button("検索"):
         st.success("検索処理を実行しました（仮）")
 
-# メインエリア
-st.markdown("### 各種情報")
+# メイン：タブ切り替え
+tab1, tab2 = st.tabs(["案件情報", "人材情報"])
 
-# テーブル表示エリア（仮データ）
-import pandas as pd
-
-# 仮のデータ（必要に応じて置き換え）
-df = pd.DataFrame([
-    {"件名": "案件A", "送信者": "sender1@mail.com", "受信日時": "2025-06-09",
-     "単価": "70万円", "年齢": 35, "商深": 2, "個人": "有", "外国籍": "無"},
-    {"件名": "案件B", "送信者": "sender2@mail.com", "受信日時": "2025-06-08",
-     "単価": "85万円", "年齢": 28, "商深": 1, "個人": "無", "外国籍": "有"}
+# 仮データ
+案件データ = pd.DataFrame([
+    {"件名": "案件A", "送信者": "abc@example.com", "受信日時": "2025-06-01", "単価": "80万円", "年齢": 35, "商深": 1, "個人": "有", "外国籍": "無"},
+    {"件名": "案件B", "送信者": "def@example.com", "受信日時": "2025-06-02", "単価": "90万円", "年齢": 28, "商深": 2, "個人": "無", "外国籍": "有"},
 ])
 
-st.dataframe(df, use_container_width=True)
+人材データ = pd.DataFrame([
+    {"件名": "エンジニアX", "送信者": "xyz@example.com", "受信日時": "2025-06-03", "単価": "75万円", "年齢": 40, "商深": 1, "個人": "有", "外国籍": "無"},
+    {"件名": "エンジニアY", "送信者": "uvw@example.com", "受信日時": "2025-06-04", "単価": "70万円", "年齢": 32, "商深": 2, "個人": "無", "外国籍": "有"},
+])
+
+# 表示切り替えとソート可能テーブル
+with tab1:
+    st.markdown("### 各種情報（案件）")
+    st.dataframe(案件データ, use_container_width=True)
+
+with tab2:
+    st.markdown("### 各種情報（人材）")
+    st.dataframe(人材データ, use_container_width=True)
